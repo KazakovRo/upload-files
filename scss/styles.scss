@@ -48,6 +48,22 @@ body {
       input[type='file'] {
         display: none;
       }
+
+      .preview {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+
+        &-image {
+          margin-bottom: 0.5rem;
+          margin-right: 0.5rem;
+
+          img {
+            width: 180px;
+            height: 100px;
+          }
+        }
+      }
     }
   }
 }

@@ -1,3 +1,6 @@
 import { upload } from './upload'
 
-upload('#file')
+upload('#file', {
+  multi: true,
+  accept: ['.png', '.jpg', '.jpg', 'gif']
+})
