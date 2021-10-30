@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap');
+
+body {
+  background-color: #666;
+  font-family: 'Scheherazade New', serif;
+
+  .container {
+    padding-top: 5rem;
+    width: 800px;
+    margin: 0 auto;
+
+    .card {
+      border-radius: 6px;
+      padding: 1rem;
+      background-color: #fff;
+      box-shadow: 2px 4px 10px rgba($color: #000000, $alpha: 0.2);
+
+      .btn {
+        color: #007bff;
+        position: relative;
+        border-radius: 99px;
+        border: 1px solid #007bff;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 0.5rem 1.5rem;
+        font-weight: 700;
+        outline: none;
+        background: #fff;
+        transition: all 0.22s;
+        cursor: pointer;
+        margin-right: 1rem;
+
+        &.primary {
+          background: #007bff;
+          color: #fff;
+        }
+
+        &.active {
+          box-shadow: inset 1px 1px 1px rgba($color: #000000, $alpha: 0.3);
+        }
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+      }
+
+      input[type='file'] {
+        display: none;
+      }
+    }
+  }
+}

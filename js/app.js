@@ -1,3 +1,3 @@
-import './upload'
+import { upload } from './upload'
 
-console.log('zxczxc')
+upload('#file')
