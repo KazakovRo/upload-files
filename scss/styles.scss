@@ -60,6 +60,11 @@ body {
           margin-right: 0.5rem;
           overflow: hidden;
 
+          &.removing {
+            transform: scale(0);
+            transition: transform 0.3s;
+          }
+
           &:hover .preview-remove {
             opacity: 1;
           }
@@ -73,6 +78,11 @@ body {
             height: 100px;
           }
         }
+
+        // .preview-image.removing {
+        //   transform: scale(0);
+        //   transition: transform 0.3s;
+        // }
 
         &-remove {
           opacity: 0;

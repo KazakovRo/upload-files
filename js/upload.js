@@ -6,6 +6,7 @@ function bytesToSize(bytes) {
 }
 
 export function upload(selector, options = {}) {
+  let files = []
   const input = document.querySelector(selector)
   const preview = document.createElement('div')
 
@@ -37,7 +38,7 @@ export function upload(selector, options = {}) {
     }
 
     // data about selected file (multi select)
-    const files = Array.from(e.target.files)
+    files = Array.from(e.target.files)
 
     // очистка выбраных файлов - preview.innerHTML = ''
     // то есть при каждом открытии модалки, отображаться будут
@@ -65,7 +66,7 @@ export function upload(selector, options = {}) {
           'afterbegin',
           `
             <div class="preview-image">
-              <div class="preview-remove common-settings">&times;</div>
+              <div class="preview-remove common-settings" data-name="${file.name}">&times;</div>
               <img src="${src}" alt="${file.name}" />
               <div class="preview-info common-settings">
                 <span>${file.name}</span>
@@ -82,6 +83,22 @@ export function upload(selector, options = {}) {
     })
   }
 
+  const removeSelectedFile = e => {
+    if (!e.target.dataset.name) {
+      return
+    }
+
+    const { name } = e.target.dataset
+    // delete file in array
+    files = files.filter(file => file.name !== name)
+
+    const block = preview.querySelector(`[data-name='${name}']`).closest('.preview-image')
+
+    block.classList.add('removing')
+    setTimeout(() => block.remove(), 300)
+  }
+
   open.addEventListener('click', openInput)
   input.addEventListener('change', changeFiles)
+  preview.addEventListener('click', removeSelectedFile)
 }
