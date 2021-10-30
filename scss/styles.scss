@@ -55,13 +55,53 @@ body {
         padding: 0.5rem;
 
         &-image {
+          position: relative;
           margin-bottom: 0.5rem;
           margin-right: 0.5rem;
+          overflow: hidden;
+
+          &:hover .preview-remove {
+            opacity: 1;
+          }
+
+          &:hover .preview-info {
+            bottom: 11px;
+          }
 
           img {
             width: 180px;
             height: 100px;
           }
+        }
+
+        &-remove {
+          opacity: 0;
+          right: 0;
+          top: 0;
+          width: 20px;
+          height: 20px;
+          font-weight: bold;
+          justify-content: center;
+          cursor: pointer;
+          transition: opacity 0.22s;
+        }
+
+        &-info {
+          left: 0;
+          right: 0;
+          bottom: -30px;
+          height: 25px;
+          font-size: 0.8rem;
+          justify-content: space-between;
+          padding: 0 5px;
+          transition: bottom 0.22s;
+        }
+
+        .common-settings {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          background: rgba($color: #fff, $alpha: 0.5);
         }
       }
     }
