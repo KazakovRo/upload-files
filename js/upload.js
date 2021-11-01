@@ -1,20 +1,38 @@
-function bytesToSize(bytes) {
+const bytesToSize = bytes => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
   if (!bytes) return '0 Byte'
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
   return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i]
 }
 
+const element = (tag, classes = [], content) => {
+  const node = document.createElement(tag)
+
+  if (classes.length) {
+    node.classList.add(...classes)
+  }
+
+  if (content) {
+    node.textContent = content
+  }
+
+  return node
+}
+
 export function upload(selector, options = {}) {
   let files = []
   const input = document.querySelector(selector)
-  const preview = document.createElement('div')
+  const preview = element('div', ['preview'])
+  // const preview = document.createElement('div')
+  // preview.classList.add('preview')
 
-  preview.classList.add('preview')
+  const upload = element('button', ['btn', 'primary'], 'Upload')
+  upload.style.display = 'none'
 
-  const open = document.createElement('button')
-  open.classList.add('btn')
-  open.textContent = 'Open'
+  const open = element('button', ['btn'], 'Open')
+  // const open = document.createElement('button')
+  // open.classList.add('btn')
+  // open.textContent = 'Open'
 
   //add multiple change Files
   options.multi ? input.setAttribute('multiple', true) : null
@@ -26,11 +44,12 @@ export function upload(selector, options = {}) {
 
   input.insertAdjacentElement('afterend', preview)
   input.insertAdjacentElement('afterend', open)
+  input.insertAdjacentElement('afterend', upload)
 
   const openInput = () => input.click()
   const changeFiles = e => {
     // data about selected file
-    // console.log(e.target.files)
+    console.log(e.target.files)
 
     // if no files are selected, nothing needs to be done
     if (!e.target.files.length) {
@@ -39,6 +58,7 @@ export function upload(selector, options = {}) {
 
     // data about selected file (multi select)
     files = Array.from(e.target.files)
+    upload.style.display = 'inline'
 
     // очистка выбраных файлов - preview.innerHTML = ''
     // то есть при каждом открытии модалки, отображаться будут
@@ -92,13 +112,20 @@ export function upload(selector, options = {}) {
     // delete file in array
     files = files.filter(file => file.name !== name)
 
+    if (!files.length) {
+      upload.style.display = 'none'
+    }
+
     const block = preview.querySelector(`[data-name='${name}']`).closest('.preview-image')
 
     block.classList.add('removing')
     setTimeout(() => block.remove(), 300)
   }
 
+  const uploadHandler = e => {}
+
   open.addEventListener('click', openInput)
   input.addEventListener('change', changeFiles)
   preview.addEventListener('click', removeSelectedFile)
+  upload.addEventListener('click', uploadHandler)
 }
