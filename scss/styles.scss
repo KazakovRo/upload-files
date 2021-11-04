@@ -79,11 +79,6 @@ body {
           }
         }
 
-        // .preview-image.removing {
-        //   transform: scale(0);
-        //   transition: transform 0.3s;
-        // }
-
         &-remove {
           opacity: 0;
           right: 0;
@@ -105,6 +100,17 @@ body {
           justify-content: space-between;
           padding: 0 5px;
           transition: bottom 0.22s;
+        }
+
+        &-info-progress {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          background: #007bff;
+          text-align: center;
+          transition: width 0.22s;
+          width: 30%;
         }
 
         .common-settings {

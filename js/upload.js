@@ -19,8 +19,11 @@ const element = (tag, classes = [], content) => {
   return node
 }
 
+function noop() {}
+
 export function upload(selector, options = {}) {
   let files = []
+  const onUpload = options.onUpload ?? noop
   const input = document.querySelector(selector)
   const preview = element('div', ['preview'])
   // const preview = document.createElement('div')
@@ -49,7 +52,7 @@ export function upload(selector, options = {}) {
   const openInput = () => input.click()
   const changeFiles = e => {
     // data about selected file
-    console.log(e.target.files)
+    // console.log(e.target.files)
 
     // if no files are selected, nothing needs to be done
     if (!e.target.files.length) {
@@ -122,7 +125,19 @@ export function upload(selector, options = {}) {
     setTimeout(() => block.remove(), 300)
   }
 
-  const uploadHandler = e => {}
+  const clearPreview = elem => {
+    elem.style.bottom = '11px'
+    elem.innerHTML = `<div class="preview-info-progress"></div>`
+  }
+
+  const uploadHandler = () => {
+    // убрать возможность удаления елементов при загрузке файлов
+    preview.querySelectorAll('.preview-remove').forEach(e => e.remove())
+    const previewInfo = preview.querySelectorAll('.preview-info')
+    previewInfo.forEach(clearPreview)
+
+    onUpload(files)
+  }
 
   open.addEventListener('click', openInput)
   input.addEventListener('change', changeFiles)
