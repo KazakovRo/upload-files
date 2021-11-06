@@ -24,7 +24,7 @@ upload('#file', {
       const storageRef = ref(storage, `images/${file.name}`)
       console.log(storageRef)
       // console.warn(file)
-      // const uploadTask = ref.put(file)
+      // const uploadTask = storageRef.put(file)
 
       // var next = function (snapshot) {
       //   console.log(snapshot)
@@ -34,15 +34,19 @@ upload('#file', {
 
       // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, next, error, complete)
 
-      // uploadBytes(storageRef, file).then(snapshot => {
-      // const percentage = (snapshot.bytesTransfered / snapshot.size) * 100
-      // const percentage = snapshot.size
-      // console.log(percentage)
-      // console.log(snapshot.metadata.size)
+      uploadBytes(storageRef, file).then(snapshot => {
+        const percentage = (snapshot.bytesTransfered / snapshot.totalBytes) * 100
+        // console.log('percentage', percentage)
+        // console.log(snapshot.metadata.size)
 
-      // var percent = (snapshot.bytesTransferred / snapshot.metadata.size) * 100
-      // console.log(percent + '% done')
-      // })
+        console.log('bytesTransfered', snapshot.bytesTransfered)
+        console.log('totalBytes', snapshot.totalBytes)
+
+        console.log('snapshot', snapshot)
+
+        // var percent = (snapshot.bytesTransferred / snapshot.metadata.size) * 100
+        // console.log(percent + '% done')
+      })
 
       // task.on(
       //   'state_changed',
